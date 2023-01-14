@@ -1,0 +1,35 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="bg-dark">
+<head>
+    <title>Birdnest App - Paul VAUTIER</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="/fetch_drones.js"></script>
+</head>
+<body class="bg-dark">
+<div class="bg-dark table-responsive w-75 mx-auto">
+    <h2 class="text-white text-center">Birdnest Guardian application</h2>
+    <table class="table table-dark table-striped table-bordered" id="drones-table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full name</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Latest observation</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pilot, iter : ${pilots}">
+            <th scope="row" th:text="${iter.index + 1}"/>
+            <td th:text="${pilot.lastName} +' '+ ${pilot.firstName}"/>
+            <td th:text="${pilot.closestDistance}"/>
+            <td th:text="${#temporals.format(pilot.latestObservation, 'yyyy-MM-dd HH:mm:ss')}"/>
+            <td th:text="${pilot.phoneNumber}"/>
+            <td><a th:href="'mailto:' + ${pilot.email}" th:text="${pilot.email}"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

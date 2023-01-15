@@ -3,6 +3,7 @@ package org.pepdev.birdnest.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
+import lombok.extern.slf4j.Slf4j;
 import org.pepdev.birdnest.dao.PilotRepository;
 import org.pepdev.birdnest.model.PilotInfo;
 import org.pepdev.birdnest.model.xstream.Capture;
@@ -22,6 +23,7 @@ import java.util.*;
  * Class representing the guardian that monitors the drones
  */
 @Service
+@Slf4j
 public class DroneGuardianService {
 
     private final XStream xStream;
@@ -148,9 +150,11 @@ public class DroneGuardianService {
                 pilotInfo.setSerialNumber(serialNumber);
                 return Optional.of(pilotInfo);
             } catch (JsonProcessingException e) {
+                log.warn("could not process the data from the request {}", result);
                 return Optional.empty();
             }
         } else {
+            log.warn("request failed {}", result);
             return Optional.empty();
         }
     }

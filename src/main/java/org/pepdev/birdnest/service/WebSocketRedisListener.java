@@ -3,6 +3,7 @@ package org.pepdev.birdnest.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
  * Listens to redis event and sends the drone's data to the clients
  */
 @Component
+@Slf4j
 public class WebSocketRedisListener implements MessageListener {
     private final ObjectMapper mapper;
 
@@ -33,7 +35,7 @@ public class WebSocketRedisListener implements MessageListener {
         try {
             this.simpMessagingTemplate.convertAndSend("/drones", mapper.writeValueAsString(droneGuardianService.getPilotInfos()));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            log.error("could not send data to the client", e);
         }
     }
 }

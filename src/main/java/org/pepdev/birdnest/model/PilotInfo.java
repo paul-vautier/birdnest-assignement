@@ -11,11 +11,15 @@ import org.springframework.data.redis.core.RedisHash;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Pilot information stored in database
+ * TTL of 10 minutes so that it auto expires, to prevent confidentiality issues.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash(value = "Drone")
+@RedisHash(value = "Pilot", timeToLive = 600)
 public class PilotInfo implements Serializable {
     @Id
     String serialNumber;

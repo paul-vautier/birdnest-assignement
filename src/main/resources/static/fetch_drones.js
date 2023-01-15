@@ -1,20 +1,4 @@
 'use strict';
-const fetchConfig = {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json',
-
-    },
-};
-
-/**
- * Retrieve the data of the pilots that entered the No-Fly-Zone
- */
-function retrievePilotData() {
-    fetch('/drones', fetchConfig)
-        .then(response => response.json())
-        .then(response =>updateDroneData(response));
-}
 
 /**
  * Adds the drone data to the list
@@ -27,6 +11,9 @@ function updateDroneData(pilotList) {
     }
 
     pilotList.forEach((drone, index)=> {
+        if (drone == null) {
+            return;
+        }
         tbody.innerHTML+= `<th scope="row"> ${index + 1}</td>
             <td>${drone.lastName} ${drone.firstName}</td>
             <td>${drone.closestDistance}</td>
@@ -37,4 +24,10 @@ function updateDroneData(pilotList) {
     })
 }
 
-setInterval(retrievePilotData, 2000);
+let socket = new SockJS('/gs-guide-websocket');
+let stompClient = Stomp.over(socket);
+stompClient.connect({}, function () {
+    stompClient.subscribe('/drones', function (message) {
+        updateDroneData(JSON.parse(message.body));
+    });
+});

@@ -51,8 +51,7 @@ window.addEventListener('load', ()=> {
             if (drone == null) {
                 return;
             }
-            console.log({x : drone.px, y: drone.py})
-            let pos = positionToCanvasPosition(drone.px, drone.py, padding, canvas);
+            let pos = positionToCanvasPosition(drone.px, drone.py, radius, centerPos);
             context.beginPath();
             context.arc(pos.x, pos.y, 5, 0, 2 * Math.PI, false);
             context.strokeStyle = '#FF0000';
@@ -61,8 +60,12 @@ window.addEventListener('load', ()=> {
         });
     }
 
-    function positionToCanvasPosition(x, y, padding, canvas) {
-        return {x: padding + (x/500000)*(canvas.height - padding), y :padding + (y/500000)*(canvas.width - padding)};
+    function positionToCanvasPosition(x, y, radius, center) {
+        return {x: map(x, 150000, 350000, center.x-radius, center.x+radius), y :map(y, 150000, 350000, center.y-radius, center.y+radius)};
+    }
+
+    function map(value, x1, y1, x2, y2) {
+        return (value - x1) * (y2 - x2) / (y1 - x1) + x2;
     }
     if (initData) {
         updateDroneData(initData);

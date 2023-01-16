@@ -104,13 +104,17 @@ public class DroneGuardianService {
 
         Optional<PilotInfo> pilotInfo = pilotRepository.findById(droneInfo.getSerialNumber()).map(pilot -> {
             pilot.setClosestDistance(Math.min(pilot.getClosestDistance(), distance));
+            pilot.setPY(droneInfo.getPositionY());
+            pilot.setPX(droneInfo.getPositionX());
             return Optional.of(pilot);
         }).orElseGet(() -> this.getPilotInformation(droneInfo.getSerialNumber()).map(pilot -> {
             pilot.setClosestDistance(distance);
+            pilot.setPY(droneInfo.getPositionY());
+            pilot.setPX(droneInfo.getPositionX());
             return pilot;
         }));
 
-        pilotInfo.ifPresent((pilot) -> {
+        pilotInfo.ifPresent(pilot -> {
             pilot.setLatestObservation(LocalDateTime.now());
             pilotRepository.save(pilot);
         });

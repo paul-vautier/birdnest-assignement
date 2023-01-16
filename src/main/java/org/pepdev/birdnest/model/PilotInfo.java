@@ -32,4 +32,8 @@ public class PilotInfo implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     LocalDateTime latestObservation;
     double closestDistance;
+
+    float pX;
+
+    float pY;
 }

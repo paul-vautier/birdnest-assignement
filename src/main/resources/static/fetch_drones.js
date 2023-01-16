@@ -34,12 +34,14 @@ window.addEventListener('load', ()=> {
     function drawMap(pilots) {
         const canvas = document.getElementById("map");
         const context = canvas.getContext("2d");
-        const size = Math.min(window.innerHeight, window.innerWidth) / 2;
+        const size = Math.min(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight) / 2;
         canvas.height = size;
         canvas.width = size;
+        canvas.style.width = size +'px';
+        canvas.style.height = size +'px';
         const padding = 10;
         const centerPos = {x: canvas.width / 2, y: canvas.height / 2};
-        const radius = size - padding;
+        const radius = size / 2 - padding;
 
         context.fillStyle = '#FFFFFF';
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -54,15 +56,15 @@ window.addEventListener('load', ()=> {
             }
             let pos = positionToCanvasPosition(drone.px, drone.py, radius, centerPos);
             context.beginPath();
-            context.arc(pos.x, pos.y, 5, 0, 2 * Math.PI, false);
+            context.arc(pos.x, pos.y, 10, 0, 2 * Math.PI, false);
             context.strokeStyle = '#FF0000';
             context.fillStyle = '#FF0000';
             context.fill();
             context.beginPath();
-            context.font = "12px Georgia";
+            context.font = "14px Georgia";
             context.fontWeight = "bold";
             context.fillStyle = "black";
-            context.fillText(index + 1, pos.x, pos.y);
+            context.fillText(index + 1, pos.x - 5, pos.y);
             context.fill();
         });
     }

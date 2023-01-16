@@ -104,6 +104,7 @@ public class DroneGuardianService {
 
         Optional<PilotInfo> pilotInfo = pilotRepository.findById(droneInfo.getSerialNumber()).map(pilot -> {
             if (pilot.getClosestDistance() > distance) {
+                pilot.setClosestDistance(distance);
                 pilot.setPY(droneInfo.getPositionY());
                 pilot.setPX(droneInfo.getPositionX());
             }

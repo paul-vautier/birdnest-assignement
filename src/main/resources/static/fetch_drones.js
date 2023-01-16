@@ -29,16 +29,17 @@ window.addEventListener('load', ()=> {
 
     /**
      * Adds the drone data to the map
-     * @param {{serialNumber : string, pilotId : string, firstName : string, lastName : string,  latestObservation : string, phoneNumber : string, phoneNumber : string, createdDt : string, email : string, closestDistance : number, }[]} pilotList
+     * @param {{px: number, py:number, serialNumber : string, pilotId : string, firstName : string, lastName : string,  latestObservation : string, phoneNumber : string, phoneNumber : string, createdDt : string, email : string, closestDistance : number, }[]} pilots
      */
     function drawMap(pilots) {
         const canvas = document.getElementById("map");
         const context = canvas.getContext("2d");
-        canvas.height = window.innerHeight / 2;
-        canvas.width = window.innerWidth / 2;
+        const size = Math.min(window.innerHeight, window.innerWidth) / 2;
+        canvas.height = size;
+        canvas.width = size;
         const padding = 10;
         const centerPos = {x: canvas.width / 2, y: canvas.height / 2};
-        const radius = Math.min(centerPos.x, centerPos.y) - padding;
+        const radius = size - padding;
 
         context.fillStyle = '#FFFFFF';
         context.fillRect(0, 0, canvas.width, canvas.height);

@@ -103,9 +103,10 @@ public class DroneGuardianService {
         double distance = this.getDistanceFromNest(droneInfo);
 
         Optional<PilotInfo> pilotInfo = pilotRepository.findById(droneInfo.getSerialNumber()).map(pilot -> {
-            pilot.setClosestDistance(Math.min(pilot.getClosestDistance(), distance));
-            pilot.setPY(droneInfo.getPositionY());
-            pilot.setPX(droneInfo.getPositionX());
+            if (pilot.getClosestDistance() > distance) {
+                pilot.setPY(droneInfo.getPositionY());
+                pilot.setPX(droneInfo.getPositionX());
+            }
             return Optional.of(pilot);
         }).orElseGet(() -> this.getPilotInformation(droneInfo.getSerialNumber()).map(pilot -> {
             pilot.setClosestDistance(distance);

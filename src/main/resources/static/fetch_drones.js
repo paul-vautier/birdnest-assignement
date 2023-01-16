@@ -47,7 +47,7 @@ window.addEventListener('load', ()=> {
         context.strokeStyle = '#000000';
         context.stroke();
 
-        pilots.forEach(drone => {
+        pilots.forEach((drone, index) => {
             if (drone == null) {
                 return;
             }
@@ -56,6 +56,12 @@ window.addEventListener('load', ()=> {
             context.arc(pos.x, pos.y, 5, 0, 2 * Math.PI, false);
             context.strokeStyle = '#FF0000';
             context.fillStyle = '#FF0000';
+            context.fill();
+            context.beginPath();
+            context.font = "12px Georgia";
+            context.fontWeight = "bold";
+            context.fillStyle = "black";
+            context.fillText(index + 1, pos.x, pos.y);
             context.fill();
         });
     }

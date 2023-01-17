@@ -1,4 +1,4 @@
-package org.pepdev.birdnest.dao;
+package org.pepdev.birdnest.repository;
 
 import org.pepdev.birdnest.model.PilotInfo;
 import org.springframework.data.repository.CrudRepository;

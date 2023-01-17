@@ -1,5 +1,7 @@
 # PROJECT BIRDNEST
 
+Test the application : paul.maner.fr:8080
+
 - 1 : Introduction
 - 2 : Presentation of the project
 ## 1 : Introduction 

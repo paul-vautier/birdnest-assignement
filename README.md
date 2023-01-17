@@ -63,7 +63,8 @@ The project structure is a standard Spring Boot 3-tier architecture, with a Pres
 └── resources
 ```
 
-To start the application, you must have a running redis database, or have Docker installed on your computer and run `docker compose up` (may change depending on your system)
+To start the application, you must have a running redis database, or have Docker installed on your computer and run `docker compose up` (may change depending on your system).
+
 You must then configure you keyspace notification in the redis-cli using : `config set notify-keyspace-events KEhx`, enabling notifications on key expiration and HSet modifications 
 
 Application lifecycle :

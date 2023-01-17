@@ -1,6 +1,8 @@
 # PROJECT BIRDNEST
 
-[Test the application : paul.maner.fr:8080](paul.maner.fr:8080) (As the assignement was done over the course of a weekend, I had no time to add HTTP connection. It is not an important issue as there is no real data being transferred, so SSL is not mandatory. 
+[**Test the application**](http://paul.maner.fr:8080) 
+
+*Note : As the assignement was done over the course of a weekend, I had no time to add HTTP connection. It is not an important issue as there is no real data being transferred, so SSL is not mandatory.*
 
 - 1 : Introduction
 - 2 : Presentation of the project
